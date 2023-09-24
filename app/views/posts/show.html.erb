@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<p>
+    <strong>Name:</strong>
+    <%= @post.name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @post.description %>
+  </p>
+
+<div>
+  <%= link_to "Edit this Post", edit_topic_post_path(@topic,@post) %> |
+  <%= link_to "Back to Post", topic_posts_path(@topic) %>
+
+  <%= button_to "Destroy this post", topic_post_path(@topic,@post), method: :delete %>
+</div>

@@ -3,12 +3,24 @@
 <h1>Topics</h1>
 
 <div id="topics">
-  <% @topics.each do |topic| %>
-    <%= render topic %>
-    <p>
-      <%= link_to "Show this topic", topic %>
-    </p>
-  <% end %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <td colspan="3">Operations</th>
+      </tr>
+    </thead>
+    <% @topics.each do |topic| %>
+      <tr>
+        <td><%= topic.name %></td>
+        <td><%= topic.description %></td>
+        <td><%= link_to "Open", topic %></td>
+        <td><%= link_to "Edit", edit_topic_path(topic) %></td>
+        <td><%= button_to "Delete", topic_path(topic) ,method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
 </div>
 
 <%= link_to "New topic", new_topic_path %>

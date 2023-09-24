@@ -4,7 +4,8 @@
 
 <div>
   <%= link_to "Edit this topic", edit_topic_path(@topic) %> |
-  <%= link_to "Back to topics", topics_path %>
+  <%= link_to "Back to topics", topics_path %> | 
+  <%= link_to "view posts", topic_posts_path(@topic) %>
 
   <%= button_to "Destroy this topic", @topic, method: :delete %>
 </div>
