@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   def index
 
     if params[:topic_id].nil?
-      @post = Post.all
+      @post = Post.all.page(params[:page])
     else
       @topic = Topic.find(params[:topic_id])
       @post = @topic.posts.all

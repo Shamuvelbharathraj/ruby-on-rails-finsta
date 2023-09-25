@@ -34,4 +34,6 @@
 <%unless @topic.nil?%>
   <%= link_to "New post", new_topic_post_path(@topic) %> |
   <%= link_to "Back", topic_path(@topic) %>
+<%else%>
+  <%= paginate @post%>
 <%end%>

@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+  validates :name , :description, presence: true
+  
+  paginates_per 10
   has_many :comments, dependent: :destroy
   belongs_to :topic
 

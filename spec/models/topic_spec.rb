@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Topic, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "topic field presents" do
+    let(:topic) { build :topic}
+    
+    it "check valid" do 
+      expect(topic.valid?).to eq(true)
+    end
+  end
 end
