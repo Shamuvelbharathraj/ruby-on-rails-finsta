@@ -1,0 +1,37 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>All Tags</h1>
+
+<div id="tags">
+<table>
+  <thead>
+    <th>Tag name</th>
+    <th colspan="3">Operations</th>
+  </thead>
+  <tbody>
+    <% @tag.each do |tag| %>
+      <tr>
+        <td><%= tag.name%></td>
+        <%if @post.nil?%>
+          <td><%= link_to "Show ", topic_tag_path(@topic,tag) %></td>
+          <td><%= link_to "Edit", edit_topic_tag_path(@topic,tag) %></td>
+          <td><%= button_to "Delete", topic_tag_path(@topic,tag),method: :delete %></td>
+        <%else%>
+          <td><%= link_to "Show ", topic_post_tag_path(@topic,@post,tag) %></td>
+          <td><%= link_to "Edit", edit_topic_post_tag_path(@topic,@post,tag) %></td>
+          <td><%= button_to "Delete", topic_post_tag_path(@topic,@post,tag),method: :delete %></td>
+        <%end%>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<%if @post.nil?%>
+  <%= link_to "New tag", new_topic_tag_path(@topic) %> |
+  <%= link_to "Back", new_topic_post_path(@topic) %>
+<%else%>
+  <%= link_to "New tag", new_topic_post_tag_path(@topic,@post) %> |
+  <%= link_to "Back", edit_topic_post_path(@topic,@post) %>
+<%end%>

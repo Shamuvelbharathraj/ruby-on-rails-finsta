@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<div>
+  <h4>Tag name</h4>
+  <p><%= @tag.name%></p>
+</div>
+
+<div>
+  <%if @post.nil?%>
+    <%= link_to "Edit", edit_topic_tag_path(@topic,@tag) %> |
+    <%= link_to "Back", topic_tags_path(@topic) %>
+    <%= button_to "Destroy", topic_tag_path(@topic,@tag), method: :delete %>
+  <%else%>
+    <%= link_to "Edit", edit_topic_post_tag_path(@topic,@post,@tag) %> |
+    <%= link_to "Back", topic_post_tags_path(@topic,@post) %>
+    <%= button_to "Destroy", topic_post_tag_path(@topic,@post,@tag), method: :delete %>
+  <%end%>
+</div>

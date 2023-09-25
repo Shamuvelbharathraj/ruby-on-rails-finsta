@@ -23,6 +23,19 @@
     <%= form.text_area :description %>
   </div>
 
+  <div style="display:flex;gap:1rem;">
+    <% if @tag.count>0%>
+      <% @tag.each do |tag|%>
+        <div>
+          <%=form.check_box :check ,{multiple: true}, tag.id %>
+          <%= form.label tag.name %>
+        </div>
+      <%end%>
+    <%end%>
+    <%= link_to "Create tag", new_topic_post_tag_path(@topic,@post) %>
+    <%= link_to "List tags", topic_post_tags_path(@topic,@post) %>
+  </div>
+
   <div>
     <%= form.submit %>
   </div>
@@ -31,6 +44,5 @@
 <br>
 
 <div>
-  <%= link_to "Show this Post", topic_post_path(@topic,@post) %> |
-  <%= link_to "Back to posts", topic_posts_path(@topic) %>
+  <%= link_to "Back", topic_post_path(@topic,@post) %>
 </div>

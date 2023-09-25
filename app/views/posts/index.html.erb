@@ -9,6 +9,10 @@
       <tr>
         <th>Post Name</th>
         <th>Post Description</th>
+        <%if @topic.nil?%>
+          <th>Topic Name</th>
+        <%end%>
+
         <th colspan="3">Operations</th>
       </tr>
     </thead>
@@ -16,13 +20,18 @@
       <tr>
         <td><%= post.name %></td>
         <td><%= post.description %></td>
-        <td><%= link_to "Open", topic_post_path(@topic,post) %></td>
-        <td><%= link_to "Edit", edit_topic_post_path(@topic,post) %></td>
-        <td><%= button_to "Delete", topic_post_path(@topic,post) ,method: :delete %></td>
+        <%if @topic.nil?%>
+          <td><%= post.topic.name %></td>
+        <%end%>
+        <td><%= link_to "Open", topic_post_path(post.topic_id,post) %></td>
+        <td><%= link_to "Edit", edit_topic_post_path(post.topic_id,post) %></td>
+        <td><%= button_to "Delete", topic_post_path(post.topic_id,post) ,method: :delete %></td>
       </tr>
     <% end %>
   </table>
 </div>
 
-<%= link_to "New post", new_topic_post_path(@topic) %> |
-<%= link_to "Back", topic_path(@topic) %>
+<%unless @topic.nil?%>
+  <%= link_to "New post", new_topic_post_path(@topic) %> |
+  <%= link_to "Back", topic_path(@topic) %>
+<%end%>

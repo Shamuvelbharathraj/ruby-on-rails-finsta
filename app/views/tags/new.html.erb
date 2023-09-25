@@ -1,0 +1,58 @@
+<h1>New tag</h1>
+<%if @post.nil?%>
+  <%= form_with(model: [@topic,@tag]) do |form| %>
+    <% if @tag.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+
+        <ul>
+          <% @tag.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+<%else%>
+  <%= form_with(model: [@topic,@post,@tag]) do |form| %>
+    <% if @tag.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+
+        <ul>
+          <% @tag.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>
+<%end%>
+
+<br>
+
+<div>
+  <%if @post.nil?%>
+    <%= link_to "Back", new_topic_post_path(@topic) %>
+  <%else%>
+    <%= link_to "Back", edit_topic_post_path(@topic,@post) %>
+  <%end%>
+</div>
