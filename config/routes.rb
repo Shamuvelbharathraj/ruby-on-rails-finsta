@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  
   resources :topics do
     resources :posts do
       resources :comments
       resources :tags
+      resources :ratings
     end
     resources :tags
   end

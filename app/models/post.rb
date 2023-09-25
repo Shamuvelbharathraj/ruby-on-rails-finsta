@@ -7,4 +7,6 @@ class Post < ApplicationRecord
 
   has_many :posts_tag, dependent: :destroy
   has_many :tags, through: :posts_tag
+
+  has_many :ratings, dependent: :destroy
 end

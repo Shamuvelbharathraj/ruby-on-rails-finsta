@@ -17,6 +17,61 @@
   <%= button_to "Destroy this post", topic_post_path(@topic,@post), method: :delete %>
 </div>
 
+
+----------------------------------------------------------------------------------------------
+
+<h3>Ratings</h3>
+<div >
+  <%= form_with(model: [@topic,@post,@star],:html=>{:style=>"display:flex;gap:1rem;"}) do |form|%>
+
+    <div>
+      <%=form.radio_button :star,1 %>
+      <%=form.label :star, "1 star"%>
+    </div>
+
+    <div>
+      <%=form.radio_button :star,2%>
+      <%=form.label :star, "2 star"%>
+    </div>
+
+    <div>
+      <%=form.radio_button :star,3%>
+      <%=form.label :star, "3 star"%>
+    </div>
+
+    <div>
+      <%=form.radio_button :star,4%>
+      <%=form.label :star, "4 star"%>
+    </div>
+
+    <div>
+      <%=form.radio_button :star,5%>
+      <%=form.label :star, "5 star"%>
+    </div>
+
+    <div>
+      <%= form.submit "Add"%>
+    </div>
+
+  <%end%>
+</div>
+
+<%unless @rating.nil?%>
+  <table>
+    <thead>
+      <th>Rate</th>
+      <th>Count</th>
+    </thead>
+    <tbody>
+      <%@rating.keys.reverse.each do |rating|%>
+        <tr>
+          <td><%= rating %> Star</td>
+          <td><%= @rating[rating] %></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+<%end%>
 ----------------------------------------------------------------------------------------------
 
 <h3>Tags</h3>
