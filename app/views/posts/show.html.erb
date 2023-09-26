@@ -1,5 +1,9 @@
 <p style="color: green"><%= notice %></p>
-
+  <%if @post.post_profile.attached?%>
+    <%= image_tag @post.post_profile ,style: "width:20%;border:1px solid black;padding:5px;"%>
+  <%else%>
+    <div style="width:20rem;height:7rem;background-color:gray;"></div>
+  <%end%>
   <p>
     <strong>Name:</strong>
     <%= @post.name %>

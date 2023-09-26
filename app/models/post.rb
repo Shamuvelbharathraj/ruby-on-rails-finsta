@@ -1,5 +1,7 @@
 class Post < ApplicationRecord
   validates :name , :description, presence: true
+
+  has_one_attached :post_profile 
   
   paginates_per 10
   has_many :comments, dependent: :destroy
