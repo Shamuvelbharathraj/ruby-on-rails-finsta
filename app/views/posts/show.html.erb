@@ -28,7 +28,7 @@
 
 ----------------------------------------------------------------------------------------------
 
-<h3>Ratings</h3>
+<h3>Ratings <span><%= @post.ratings.average(:no).to_f.truncate(1) %></span></h3>
 <div >
   <%= form_with(model: [@topic,@post,@star],:html=>{:style=>"display:flex;gap:1rem;"}) do |form|%>
 
