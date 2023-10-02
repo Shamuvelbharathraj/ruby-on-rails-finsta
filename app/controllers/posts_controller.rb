@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_post, only: %i[ show edit update destroy ]
 
   def index
@@ -52,12 +53,13 @@ class PostsController < ApplicationController
 
   def create
     @topic = Topic.find(params[:topic_id])
-    puts "check parameters #{params[:post][:check]}"
+    puts "check parameters #{params[:post][:tags]}"
     @post = @topic.posts.new(post_params)
+    @post.user_id=current_user.id
 
     respond_to do |format|
       if @post.save
-        params[:post][:check].each do |check|
+        params[:post][:tags].each do |check|
           if check!="0"
             tag=Tag.find(check)
             @post.tags << tag
@@ -65,7 +67,8 @@ class PostsController < ApplicationController
         end
         format.html { redirect_to topic_posts_path(@topic), notice: "Post was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        puts "facing problem"
+        format.html { redirect_to new_topic_post_path(@topic), status: :unprocessable_entity,notice: "Post has facing problem." }
       end
     end
   end

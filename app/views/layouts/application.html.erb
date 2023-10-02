@@ -12,6 +12,11 @@
 
   <body>
     <p class="alert"><%= alert %></p>
+    <% if current_user%>
+      you currently logged in as <b><%= current_user.email%></b>
+      <%= button_to "sign out",destroy_user_session_path ,method: :delete %>
+    <%end%>
     <%= yield %>
   </body>
+
 </html>

@@ -12,7 +12,7 @@
         <%if @topic.nil?%>
           <th>Topic Name</th>
         <%end%>
-
+        <th>Author Name</th>
         <th colspan="3">Operations</th>
       </tr>
     </thead>
@@ -23,9 +23,17 @@
         <%if @topic.nil?%>
           <td><%= post.topic.name %></td>
         <%end%>
+
+        <td><%= User.find(post.user_id).email %></td>
         <td><%= link_to "Open", topic_post_path(post.topic_id,post) %></td>
-        <td><%= link_to "Edit", edit_topic_post_path(post.topic_id,post) %></td>
-        <td><%= button_to "Delete", topic_post_path(post.topic_id,post) ,method: :delete %></td>
+
+        <% if can? :update, post%>
+          <td><%= link_to "Edit", edit_topic_post_path(post.topic_id,post) %></td>
+        <%end%>
+
+        <% if can? :destroy, post%>
+          <td><%= button_to "Delete", topic_post_path(post.topic_id,post) ,method: :delete %></td>
+        <%end%>
       </tr>
     <% end %>
   </table>

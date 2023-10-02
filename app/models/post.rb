@@ -11,4 +11,6 @@ class Post < ApplicationRecord
   has_many :tags, through: :posts_tag
 
   has_many :ratings, dependent: :destroy
+
+  belongs_to :user
 end
