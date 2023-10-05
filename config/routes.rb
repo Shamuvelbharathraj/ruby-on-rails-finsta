@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :tags
       resources :ratings
     end
+    post "/posts/:post_id/read/:user_id", to: "posts#read"
     resources :tags
   end
 

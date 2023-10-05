@@ -20,13 +20,27 @@
     </thead>
     <% @post.each do |post| %>
       <tr>
-        <td><%= post.name %></td>
-        <td><%= post.description %></td>
-        <%if @topic.nil?%>
-          <td><%= post.topic.name %></td>
+        <% unless post.users.where("id=#{current_user.id}").count>0%>
+          
+          <td><b><%= post.name %></b></td>
+          <td><b><%= post.description %></b></td>
+          <%if @topic.nil?%>
+            <td><b><%= post.topic.name %></b></td>
+          <%end%>
+          <td><b><%= User.find(post.user_id).email %></b></td>
+
+        <%else%>
+
+          <td><%= post.name %></td>
+          <td><%= post.description %></td>
+          <%if @topic.nil?%>
+            <td><%= post.topic.name %></td>
+          <%end%>
+          <td><%= User.find(post.user_id).email %></td>
+
         <%end%>
 
-        <td><%= User.find(post.user_id).email %></td>
+
         <td style="text-align:center;"><%= post.ratings.average(:no).to_f.truncate(1) %> Stars </td>
         <td style="text-align:center;"><%= post.comments.count %> Comments </td>
         <td><%= link_to "Open", topic_post_path(post.topic_id,post) %></td>
@@ -38,6 +52,7 @@
         <% if can? :destroy, post%>
           <td><%= button_to "Delete", topic_post_path(post.topic_id,post) ,method: :delete %></td>
         <%end%>
+
       </tr>
     <% end %>
   </table>

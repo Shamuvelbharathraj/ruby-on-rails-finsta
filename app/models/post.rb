@@ -13,4 +13,6 @@ class Post < ApplicationRecord
   has_many :ratings, dependent: :destroy
 
   belongs_to :user
+
+  has_and_belongs_to_many :users
 end

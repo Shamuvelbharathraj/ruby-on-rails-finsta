@@ -1,4 +1,4 @@
-<p style="color: green"><%= notice %></p>
+<p onload="call()" style="color: green"><%= notice %></p>
   <%if @post.post_profile.attached?%>
     <%= image_tag @post.post_profile ,style: "width:20%;border:1px solid black;padding:5px;"%>
   <%else%>
@@ -149,5 +149,13 @@
 <%else%>
   <p>Empty comments</p>
 <%end%>
+
+<script>
+    console.log("<%=current_user.id%>")
+    console.log("<%= topic_post_path%>/read/<%=current_user.id%>")
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST","<%= topic_post_path%>/read/<%=current_user.id%>");
+    xhttp.send();
+</script>
 
 

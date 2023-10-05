@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   load_and_authorize_resource
+  protect_from_forgery with: :null_session
   before_action :set_post, only: %i[ show edit update destroy ]
 
   def index
@@ -17,6 +18,17 @@ class PostsController < ApplicationController
     @tag=Tag.all
     @topic = Topic.find(params[:topic_id])
     @post = Post.new
+  end
+
+  def read
+    post=Post.find(params[:post_id])
+    puts "stage 1"
+    if post.users.where("id=#{params[:user_id]}").count==0
+      puts "stage 2"
+      user=User.find(params[:user_id])
+      post.users << user
+      puts "success add"
+    end
   end
 
   def show
