@@ -124,6 +124,9 @@
       <tr>
         <th>Message</th>
         <th>Author Name</th>
+        <% if can? :create, Commentsrating %>
+            <th>Set Rating</th>
+        <%end%>
         <th colspan="3">Operations</th>
       </tr>
     </thead>
@@ -132,6 +135,43 @@
         <tr>
           <td><%= comment.msg%></td>
           <td><%= User.find(comment.user_id).email%></td>
+
+          <% if can? :create, Commentsrating %>
+            <td>
+              <%= form_with(model: [@topic,@post,comment,@commentsrating],:html=>{:style=>"display:flex;gap:1rem;"}) do |form|%>
+
+                <div>
+                  <%=form.radio_button :no,1 %>
+                  <%=form.label :no, "1 star"%>
+                </div>
+
+                <div>
+                  <%=form.radio_button :no,2%>
+                  <%=form.label :no, "2 star"%>
+                </div>
+
+                <div>
+                  <%=form.radio_button :no,3%>
+                  <%=form.label :no, "3 star"%>
+                </div>
+
+                <div>
+                  <%=form.radio_button :no,4%>
+                  <%=form.label :no, "4 star"%>
+                </div>
+
+                <div>
+                  <%=form.radio_button :no,5%>
+                  <%=form.label :no, "5 star"%>
+                </div>
+
+                <div>
+                  <%= form.submit "Add"%>
+                </div>
+
+              <%end%>
+            </td>
+          <%end%>
 
           <td><%= link_to "show", topic_post_comment_path(@topic,@post,comment)%></td>
           
@@ -143,6 +183,7 @@
             <td><%= button_to "Delete", topic_post_comment_path(@topic,@post,comment),method: :delete %></td>
           <%end%>
         </tr>
+        
       <%end%>
     </tbody>  
   </table>

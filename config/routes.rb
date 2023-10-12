@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   
   resources :topics do
     resources :posts do
-      resources :comments
+      resources :comments do
+        resources :commentsratings
+      end
       resources :tags
       resources :ratings
     end

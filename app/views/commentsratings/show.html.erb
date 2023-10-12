@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @commentsrating %>
+
+<div>
+  <%= link_to "Edit this commentsrating", edit_commentsrating_path(@commentsrating) %> |
+  <%= link_to "Back to commentsratings", commentsratings_path %>
+
+  <%= button_to "Destroy this commentsrating", @commentsrating, method: :delete %>
+</div>

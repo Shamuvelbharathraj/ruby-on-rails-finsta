@@ -1,0 +1,2 @@
+module CommentsratingsHelper
+end

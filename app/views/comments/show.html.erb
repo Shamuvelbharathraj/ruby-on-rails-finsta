@@ -11,3 +11,24 @@
     <%= button_to "Destroy this comment", topic_post_comment_path(@topic,@post,@comment), method: :delete %>
   <%end%>
 </div>
+
+<%if @commentsrating.count>0%>
+  <div>
+    <table>
+      <thead>
+        <th>rating</th>
+        <th>User</th>
+      </thead>
+      <tbody>
+        <% @commentsrating.each do |star|%>
+          <tr>
+            <td><%= star.no %></td>
+            <td><%= star.user.email %></td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+<%else%>
+<div>Empty ratings</div>
+<%end%>

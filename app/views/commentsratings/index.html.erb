@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Commentsratings</h1>
+
+<div id="commentsratings">
+  <% @commentsratings.each do |commentsrating| %>
+    <%= render commentsrating %>
+    <p>
+      <%= link_to "Show this commentsrating", commentsrating %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New commentsrating", new_commentsrating_path %>

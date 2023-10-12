@@ -37,6 +37,7 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @comment=@post.comments.all
     @tag=@post.tags.all
+    @commentsrating=Commentsrating.new
   end
 
   def edit
