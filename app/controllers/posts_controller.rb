@@ -78,9 +78,11 @@ class PostsController < ApplicationController
           end
         end
         format.html { redirect_to topic_posts_path(@topic), notice: "Post was successfully created." }
+        format.js
       else
         puts "facing problem"
         format.html { redirect_to new_topic_post_path(@topic), status: :unprocessable_entity,notice: "Post has facing problem." }
+        format.js
       end
     end
   end

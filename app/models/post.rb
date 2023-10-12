@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  validates :name, length: {maximum: 20}
   validates :name , :description, presence: true
 
   has_one_attached :post_profile 

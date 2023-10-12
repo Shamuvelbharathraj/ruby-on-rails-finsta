@@ -46,6 +46,7 @@ gem "kaminari"
 
 gem "devise"
 gem "cancancan"
+gem "jquery-rails"
 
 # Use Sass to process CSS
 # gem "sassc-rails"

@@ -1,0 +1,5 @@
+<% if @post.errors.any? %>
+    window.alert('<%= @post.errors.full_messages.join("\n")%>')
+<%else%>
+    window.alert("Post created Successfully")
+<%end%>
