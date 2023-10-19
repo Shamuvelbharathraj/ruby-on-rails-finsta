@@ -48,6 +48,7 @@ gem "devise"
 gem "cancancan"
 gem "jquery-rails"
 
+gem "bullet"
 # Use Sass to process CSS
 # gem "sassc-rails"
 

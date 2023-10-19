@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/1 or /comments/1.json
   def show
-    @commentsrating=@comment.commentsratings.all
+    @commentsrating=@comment.commentsratings.includes(:user).all
   end
 
   # GET /comments/new
