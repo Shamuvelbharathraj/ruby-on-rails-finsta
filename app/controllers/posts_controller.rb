@@ -19,6 +19,15 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @post = Post.new
   end
+  
+  def filter
+    from=params[:from_date]=="" ? Date.yesterday : params[:from_date];
+    to=params[:to_date]=="" ? Date.today : params[:to_date];
+    puts from
+    puts to
+
+    @post = Post.filtered(from,to)
+  end
 
   def read
     post=Post.find(params[:post_id])
