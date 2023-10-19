@@ -1,8 +1,6 @@
 class Post < ApplicationRecord
   scope :filtered, ->(from,to) {where("created_at between ? and ?",from,to.to_date + 1.day)}
 
-
-
   validates :name, length: {maximum: 20}
   validates :name , :description, presence: true
 
@@ -20,4 +18,6 @@ class Post < ApplicationRecord
   belongs_to :user
 
   has_and_belongs_to_many :users
+
+  
 end
