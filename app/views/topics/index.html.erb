@@ -1,26 +1,29 @@
-<p style="color: green"><%= notice %></p>
+<%if notice%>
+  <p class="my-2 alert alert-success w-50 mx-auto"><%= notice %></p>
+<%end%>
 
-<h1>Topics</h1>
-
-<div id="topics">
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <td colspan="3">Operations</th>
-      </tr>
-    </thead>
-    <% @topics.each do |topic| %>
-      <tr>
-        <td><%= topic.name %></td>
-        <td><%= topic.description %></td>
-        <td><%= link_to "Open", topic %></td>
-        <td><%= link_to "Edit", edit_topic_path(topic) %></td>
-        <td><%= button_to "Delete", topic_path(topic) ,method: :delete %></td>
-      </tr>
-    <% end %>
-  </table>
+<div class="d-flex">
+  <h1 class="display-5 fw-bold">Topics</h1>
+    <a href="<%= new_topic_path%>" class="ms-auto fs-1">
+      <i class="bi bi-plus-circle-fill text-dark">
+      </i>
+    </a>
 </div>
 
-<%= link_to "New topic", new_topic_path %>
+<div class="d-flex my-3" style="gap:1rem;flex-wrap: wrap;">
+  <% @topics.each do |topic| %>
+    <div class="card bg-secondary border border-dark border-1 text-light" style="width:23.5%;box-shadow:0px 0px 10px 3px black">
+      <div class="card-body">
+        <h5 class="card-title"><%= topic.name %></h5>
+        <p class="card-text"><%= topic.description %></p>
+        <div class="d-flex justify-content-around">
+          <%= link_to "view", topic ,class: "btn btn-primary"%>
+          <a href="<%= edit_topic_path(topic)%>" class="border border-1 border-info px-3 rounded"><i class="bi bi-vector-pen text-dark fs-4"></i></a>
+          <%= button_to "", topic_path(topic) ,method: :delete,class: "bi bi-trash3-fill border-0 bg-transparent text-danger fs-4" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+

@@ -1,113 +1,95 @@
-<p onload="call()" style="color: green"><%= notice %></p>
-  <%if @post.post_profile.attached?%>
-    <%= image_tag @post.post_profile ,style: "width:20%;border:1px solid black;padding:5px;"%>
-  <%else%>
-    <div style="width:20rem;height:7rem;background-color:gray;"></div>
-  <%end%>
-  <p>
-    <strong>Name:</strong>
+<%if notice%>
+  <p class="alert w-50 mx-auto my-2 alert-success p-2" onload="call()" style="color: green"><%= notice %></p>
+<%end%>
+
+<div class="d-flex">
+  <a href="<%= topic_posts_path(@topic)%>"><i class="bi bi-arrow-left-circle-fill fs-1 text-dark"></i></a>
+  <div class="ms-auto d-flex gap-2 mt-2">
+    <% if can? :update, @post%>
+      <%= link_to "", edit_topic_post_path(@topic,@post), class: "bi bi-vector-pen btn btn-outline-warning fs-5 rounded-circle", style: "height:90%;" %>
+    <%end%>
+
+    <% if can? :destroy, @post%>
+      <%= button_to "", topic_post_path(@topic,@post), method: :delete, class: "bi bi-trash3-fill btn fs-5 btn-outline-danger rounded-circle" %>
+    <%end%>
+  </div>
+  
+</div>
+
+<div class="w-75 mx-auto">
+  <div class=" my-2 fs-2 d-flex gap-2 ">
+    <div class="fw-bold ">Name:</div>
     <%= @post.name %>
-  </p>
+  </div>
 
-  <p>
-    <strong>Description:</strong>
-    <%= @post.description %>
-  </p>
-
-<div>
-  <% if can? :update, @post%>
-    <%= link_to "Edit this Post", edit_topic_post_path(@topic,@post) %> |
+  <%if @tag.count>0%>
+    <div class="d-flex">
+      <%@tag.each do |tag| %>
+        <span class="bg-dark text-light m-2 d-flex px-1 rounded" style="font-size:12px;">
+          <%= tag.name%>
+          <% if can? :destroy, @post%>
+            <span><%= button_to "",  topic_post_tag_path(@topic,@post,tag),method: :delete, class: "bi bi-x-lg border-0 bg-transparent text-danger" %></span>
+          <%end%>
+        </span>
+      <%end%>
+    </div>
   <%end%>
-  <%= link_to "Back", topic_posts_path(@topic) %> |
-  <%= link_to "List all posts", posts_path %>
-  <% if can? :destroy, @post%>
-    <%= button_to "Destroy this post", topic_post_path(@topic,@post), method: :delete %>
+
+  <div  class=" my-2">
+    <div class="fw-bold " style="font-size:12px;">Description:</div>
+    <%= @post.description %>  
+  </div>
+</div>
+
+<div class="mx-auto" style="width:80%">
+  <%if @post.post_profile.attached?%>
+    <%= image_tag @post.post_profile ,style: "width:100%;border:1px solid black;padding:5px;"%>
+  <%else%>
+    <div style="width:100%;height:13rem;background-color:gray;"></div>
   <%end%>
 </div>
 
-
-----------------------------------------------------------------------------------------------
-
-<h3>Ratings <span><%= @post.ratings.average(:no).to_f.truncate(1) %></span></h3>
-<div >
+<div class="w-50 mx-auto my-2">
   <%= form_with(model: [@topic,@post,@star],:html=>{:style=>"display:flex;gap:1rem;"}) do |form|%>
 
     <div>
       <%=form.radio_button :star,1 %>
-      <%=form.label :star, "1 star"%>
+      <label class="text-warning">1 <i class="bi bi-star-fill text-warning"></i></label>
+      (<%= @rating[1] ? @rating[1] : 0;%>)
     </div>
 
     <div>
       <%=form.radio_button :star,2%>
-      <%=form.label :star, "2 star"%>
+      <label class="text-warning">2 <i class="bi bi-star-fill text-warning"></i></label>
+      (<%= @rating[2] ? @rating[2] : 0;%>)
     </div>
 
     <div>
       <%=form.radio_button :star,3%>
-      <%=form.label :star, "3 star"%>
+      <label class="text-warning">3 <i class="bi bi-star-fill text-warning"></i></label>
+      (<%= @rating[3] ? @rating[3] : 0;%>)
     </div>
 
     <div>
       <%=form.radio_button :star,4%>
-      <%=form.label :star, "4 star"%>
+      <label class="text-warning">4 <i class="bi bi-star-fill text-warning"></i></label>
+      (<%= @rating[4] ? @rating[4] : 0;%>)
     </div>
 
     <div>
       <%=form.radio_button :star,5%>
-      <%=form.label :star, "5 star"%>
+      <label class="text-warning">5 <i class="bi bi-star-fill text-warning"></i></label>
+      (<%= @rating[5] ? @rating[5] : 0;%>)
     </div>
 
     <div>
-      <%= form.submit "Add"%>
+      <%= form.submit "Add #{@post.ratings.average(:no).to_f.truncate(1)}",class: "btn btn-primary py-0"%>
     </div>
 
   <%end%>
 </div>
 
-<%if !@rating.nil? && @rating.count>0%>
-  <table>
-    <thead>
-      <th>Rate</th>
-      <th>Count</th>
-    </thead>
-    <tbody>
-      <%@rating.keys.reverse.each do |rating|%>
-        <tr>
-          <td><%= rating %> Star</td>
-          <td><%= @rating[rating] %></td>
-        </tr>
-      <%end%>
-    </tbody>
-  </table>
-<%end%>
-----------------------------------------------------------------------------------------------
 
-<h3>Tags</h3>
-
-<%if @tag.count>0%>
-  <table>
-    <thead>
-      <tr>
-        <th>Tag</th>
-        <% if can? :destroy, @post%>
-          <th>Operations</th>
-        <%end%>
-      </tr>
-    </thead>
-    <tbody>
-      <%@tag.each do |tag| %>
-        <tr>
-          <td><%= tag.name%></td>
-          <% if can? :destroy, @post%>
-          `<td><%= button_to "remove",  topic_post_tag_path(@topic,@post,tag),method: :delete %></td>
-          <%end%>
-        </tr>
-      <%end%>
-    </tbody>  
-  </table>
-<%else%>
-  <p>Empty Tags</p>
-<%end%>
 
 
 ---------------------------------------------------------------------------------------------------

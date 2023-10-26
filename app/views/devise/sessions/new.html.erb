@@ -1,0 +1,32 @@
+<div class="container-fluid pt-4 mt-5" style="height:92vh">
+  <div class="m-auto w-50 bg-primary h-75 border border-dark border-2 text-light" style="border-radius:20%;box-shadow:0px 0px 20px 3px black">
+  
+    <h2 class="text-center fs-1 fw-bold my-3"><span class="text-dark display-3 fw-bold">S</span>ign <span class="text-dark display-3 fw-bold">i</span>n</h2>
+    <div class="w-75 m-auto">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field form-group my-3">
+          <%= f.label :email %><br/>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "form-control border border-top-0 border-bottom-0 border-end-0 border-dark rounded-0 bg-transparent border-5",placeholder: "Enter Email" %>
+        </div>
+
+        <div class="field form-group my-3">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "current-password",class: "form-control border border-top-0 border-bottom-0 border-end-0 border-dark rounded-0 bg-transparent border-5",placeholder: "Enter Password" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="field form-group form-check my-3">
+            <%= f.check_box :remember_me ,class: "form-check-input border border-1 border-dark bg-success"  %>
+            <%= f.label :remember_me ,class: "form-check-label" %>
+          </div>
+        <% end %>
+
+        <div class="actions form-group text-center">
+          <%= f.submit "Log in", class: "btn btn-success border border-1 border-dark px-5" %>
+        </div>
+      <% end %>
+      <%= render "devise/shared/links"%>
+    </div>
+
+  </div>
+</div>

@@ -1,34 +1,55 @@
 
-<p style="color: green"><%= notice %></p>
+  <div class="w-75 mx-auto">
+    <%if notice%>
+      <p style="color: green"><%= notice %></p>
+    <%end%>
 
-<h1>Posts</h1>
+    <div class="d-flex">
+      <%unless @topic.nil?%>
+        <a href="<%= topic_path(@topic)%>"><i class="bi bi-arrow-left-circle-fill fs-1 text-dark"></i></a>
+      <%end%>
 
-<%if params[:topic_id].nil?%>
-  <%= form_with local: false, url: posts_filter_path() do |form| %>
-    <div style="display: flex">
-      <div>
-        <%= form.label :from_date , "from date" %><br>
-        <%= form.date_field :from_date %>
+      <h2  class="pt-2 ps-3">Posts</h2>
+      <%unless @topic.nil?%>
+        <div class="ms-auto">
+          <a href="<%= new_topic_post_path(@topic)%>" class="ms-auto fs-1">
+            <i class="bi bi-plus-circle-fill text-dark">
+            </i>
+          </a>
+        </div>
+      <%end%>
+    </div>
+
+  </div>
+
+
+  <%if params[:topic_id].nil?%>
+    <div class="w-75">
+      <div class="ms-auto w-25">
+        <%= form_with local: false, url: posts_filter_path() do |form| %>
+          <div style="display: flex">
+            <div class="form-group">
+              <%= form.label :from_date , "From date", class: "form-label" %><br>
+              <%= form.date_field :from_date, class: "form-control border border-1 border-dark" %>
+            </div>
+            <div class="form-group mx-2">
+              <%= form.label :to_date , "To date", class: "form-label"  %><br>
+              <%= form.date_field :to_date, class: "form-control border border-1 border-dark" %>
+            </div>
+            <div class="mt-auto">
+              <%= form.submit "Filter", class: "btn btn-dark w-100"%>
+            </div>
+          </div>
+        <%end%>
       </div>
-      <div>
-        <%= form.label :to_date , "To date" %><br>
-        <%= form.date_field :to_date %>
-      </div>
-      <div>
-        <%= form.submit "filter"%>
-      </div>
-    </div><br>
+    </div>
   <%end%>
-<%end%>
 
 
-<div id="posts">
-  <%= render "display"%>
-</div>
+  <div id="posts">
+    <%= render "display"%>
+  </div>
 
-<%unless @topic.nil?%>
-  <%= link_to "New post", new_topic_post_path(@topic) %> |
-  <%= link_to "Back", topic_path(@topic) %>
-<%else%>
-  <%= paginate @post%>
-<%end%>
+  <%if @topic.nil?%>
+    <%= paginate @post%>
+  <%end%>
