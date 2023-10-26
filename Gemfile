@@ -47,6 +47,7 @@ gem "kaminari"
 gem "devise"
 gem "cancancan"
 gem "jquery-rails"
+gem "letter_opener"
 
 gem "bullet"
 # Use Sass to process CSS
