@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: "users/registrations"
   }
+
+  get "/user_profile", to: "profiles#show"
   
   resources :topics do
     resources :posts do

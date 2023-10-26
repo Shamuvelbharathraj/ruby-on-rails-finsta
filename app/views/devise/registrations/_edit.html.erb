@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <h2 class="modal-title fs-5">Edit <%= resource_name.to_s.humanize %></h2>
+  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <div class="modal-body">
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="form-group mb-2">
+      <%= f.label :email ,class: "form-label"%>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "form-control border border-1 border-dark rounded",placeholder: "example@gmail.com" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div class="alert alert-danger p-1">Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="form-group mb-2">
+      <%= f.label :password ,class: "form-label"%> <i>(leave blank if you don"t want to change it)</i>
+      <%= f.password_field :password, autocomplete: "new-password",class: "form-control border border-1 border-dark rounded",placeholder: "* * * * * *" %>
+      <% if @minimum_password_length %>
+        <em><%= @minimum_password_length %> characters minimum</em>
+      <% end %>
+    </div>
+
+    <div class="form-group mb-2">
+      <%= f.label :password_confirmation,class: "form-label" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password",class: "form-control border border-1 border-dark rounded",placeholder: "* * * * * *" %>
+    </div>
+
+    <div class="form-group mb-2">
+      <%= f.label :current_password,class: "form-label" %> <i>(we need your current password to confirm your changes)</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password",class: "form-control border border-1 border-dark rounded",placeholder: "* * * * * *" %>
+    </div>
+  </div>
+  <div class="modal-footer row mx-auto" style="width:95%;">
+    <button type="button" class="btn btn-secondary col" data-bs-dismiss="modal">Close</button>
+    <%= f.submit "Update",class: "btn btn-success col" %>
+  </div>
+<% end %>
